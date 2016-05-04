@@ -30,7 +30,7 @@ export default function ImageGalleryImporter(
       slideInterval: React.PropTypes.number,
       onSlide: React.PropTypes.func,
       onClick: React.PropTypes.func,
-      startIndex: React.PropTypes.number,
+      currentIndex: React.PropTypes.number,
       disableThumbnailScroll: React.PropTypes.bool,
       slideOnThumbnailHover: React.PropTypes.bool,
       server: React.PropTypes.bool
@@ -51,13 +51,13 @@ export default function ImageGalleryImporter(
         server: false,
         slideOnThumbnailHover: false,
         slideInterval: 4000,
-        startIndex: 0
+        currentIndex: 0
       }
     },
 
     getInitialState () {
       return {
-        currentIndex: this.props.startIndex,
+        currentIndex: this.props.currentIndex,
         containerWidth: 0
       }
     },
@@ -79,6 +79,12 @@ export default function ImageGalleryImporter(
       if (this._intervalId) {
         window.clearInterval(this._intervalId);
         this._intervalId = null;
+      }
+    },
+
+    componentWillReceiveProps (nextProps) {
+      if (this.state.currentIndex !== nextProps.currentIndex) {
+        this.slideToIndex(nextProps.currentIndex, true);
       }
     },
 
