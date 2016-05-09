@@ -14,7 +14,7 @@ export default {
         break
     }
 
-    if (this.props.items.length >= 3) {
+    if (this.props.items.length >= 3 && this.props.infinite) {
       if (index === 0 && currentIndex === this.props.items.length - 1) {
         // set first slide as right slide if were sliding right from last slide
         alignment = 'right'
